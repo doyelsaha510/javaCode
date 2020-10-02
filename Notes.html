@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+</head>
+<body>
+<p>Note that the newline "\n" works faster than endl, because endl always causes
+    a flush operation.</p>
+<p>Integers The most used integer type in competitive programming is int, which is
+    a 32-bit type1 with a value range of −2^31 ... 2^31 − 1 (about −2 · 10^9 ... 2 · 10^9). If the type int is not
+    enough, the 64-bit type long long can be used. It has a value
+    range of −2^63 ... 2^63 − 1 (about −9 · 10^18 ... 9 · 10^18).</p>
+<p>Modular Arithmetic Sometimes, the answer to a problem is a very large number,
+    but it is enough to output it “modulo m”, i.e., the remainder when the answer is
+    divided by m (e.g., “modulo 10^9 + 7”). The idea is that even if the actual answer is
+    very large, it suffices to use the types int and long long.
+    We denote by x mod m the remainder when x is divided by m. For example,
+    17 mod 5 = 2, because 17 = 3 · 5 + 2. An important property of remainders is that
+    the following formulas hold:
+<pre>(a + b) mod m = (a mod m + b mod m) mod m
+    (a − b) mod m = (a mod m − b mod m) mod m
+    (a · b) mod m = (a mod m · b mod m) mod m</pre>
+Thus, we can take the remainder after every operation, and the numbers will never
+become too large.</p>
+<p>For example, the following code calculates n!, the factorial of n, modulo m:
+<pre>long long x = 1;
+for (int i = 1; i <= n; i++) {
+x = (x*i)%m;
+}
+cout << x << "\n";
+</pre>
+Usually we want the remainder to always be between 0 ... m−1. However, in C++
+and other languages, the remainder of a negative number is either zero or negative.
+An easy way to make sure there are no negative remainders is to first calculate the
+remainder as usual and then add m if the result is negative:
+<pre>x = x%m;
+if (x < 0) x += m;
+</pre>
+However, this is only needed when there are subtractions in the code, and the
+remainder may become negative.</p>
+<p>
+    Floating Point Numbers In most competitive programming problems, it suffices
+    to use integers, but sometimes floating point numbers are needed. The most useful
+    floating point types in C++ are the 64-bit double and, as an extension in the g++
+    compiler, the 80-bit long double. In most cases, double is enough, but long
+    double is more accurate.
+    The required precision of the answer is usually given in the problem statement.
+    An easy way to output the answer is to use the printf function and give the number
+    of decimal places in the formatting string. For example, the following code prints
+    the value of x with 9 decimal places:
+<pre>
+    printf("%.9f\n", x);
+    </pre>
+A difficulty when using floating point numbers is that some numbers cannot be
+represented accurately as floating point numbers, and there will be rounding errors.
+For example, in the following code, the value of x is slightly smaller than 1, while
+the correct value would be 1.
+<pre>
+    double x = 0.3*3+0.1;
+    printf("%.20f\n", x); // 0.99999999999999988898
+    </pre>
+It is risky to compare floating point numbers with the == operator, because it is
+possible that the values should be equal but they are not because of precision errors.
+A better way to compare floating point numbers is to assume that two numbers are
+equal if the difference between them is less than ε, where ε is a small number. For
+example, in the following code ε = 10^−9:
+<pre>if (abs(a-b) < 1e-9) {
+        // a and b are equal
+        }
+    </pre>
+Note that while floating point numbers are inaccurate, integers up to a certain
+limit can still be represented accurately. For example, using double, it is possible
+to accurately represent all integers whose absolute value is at most 2^53.
+</p>
+<p>, the bit representation of the int
+    number −43 is
+    <pre>
+    11111111111111111111111111010101.
+    </pre>
+    In an unsigned representation, only nonnegative numbers can be used, but the
+    upper bound for the values is larger. An unsigned variable of n bits can contain any
+    integer between 0 and 2^n − 1. For example, in C++, an unsigned int variable
+    can contain any integer between 0 and 2^32 − 1.
+    There is a connection between the representations: a signed number −x equals
+    an unsigned number 2^n − x. For example, the following code shows that the signed
+    number x = −43 equals the unsigned number y = 2^32 − 43:
+<pre>
+    int x = -43;
+    unsigned int y = x;
+    cout << x << "\n"; // -43
+    cout << y << "\n"; // 4294967253</pre>
+    If a number is larger than the upper bound of the bit representation, the number
+    will overflow. In a signed representation, the next number after 2^(n−1) − 1 is −2^(n−1),
+and in an unsigned representation, the next number after 2^n − 1 is 0. For example,
+consider the following code:
+<pre>
+int x = 2147483647
+cout << x << "\n"; // 2147483647
+x++;
+cout << x << "\n"; // -2147483648
+    </pre>
+Initially, the value of x is 2^31 − 1. This is the largest value that can be stored in
+an int variable, so the next number after 2^31 − 1 is −2^31.</p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+
+</body>
+</html>
